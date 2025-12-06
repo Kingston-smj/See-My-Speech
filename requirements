@@ -1,0 +1,42 @@
+# requirements.txt
+PyQt5>=5.15.7
+openai-whisper>=20231117
+torch>=1.9.0
+torchaudio>=0.9.0
+psutil>=5.8.0
+pydub>=0.25.1
+numpy>=1.21.0
+
+
+# Optional for building executables
+# pyinstaller>=5.0
+# cx_freeze>=6.0
+# auto-py-to-exe>=2.0
+
+# setup.py for cx_Freeze distribution
+import sys
+from cx_Freeze import setup, Executable
+
+# Dependencies are automatically detected, but it might need fine tuning.
+build_options = {
+    'packages': ['whisper', 'torch', 'PyQt5'],
+    'excludes': ['tkinter'],
+    'include_files': []
+}
+
+base = 'Win32GUI' if sys.platform=='win32' else None
+
+executables = [
+    Executable('whisper_qt_app.py',
+              base=base,
+              target_name='WhisperTranscription',
+              icon='assets/icon.ico')
+]
+
+setup(
+    name='Whisper Audio Transcription',
+    version='1.0.0',
+    description='Local audio transcription using OpenAI Whisper',
+    options={'build_exe': build_options},
+    executables=executables
+)
