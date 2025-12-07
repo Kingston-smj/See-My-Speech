@@ -40,6 +40,12 @@ Thumbs.db
 *.qbs.user*
 CMakeLists.txt.user*
 
+# Qt / PyInstaller / PyQt / build artifacts
+*=*
+build/
+dist/
+__pycache__/
+
 # xemacs temporary files
 *.flc
 

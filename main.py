@@ -190,6 +190,17 @@ class AudioTranscriptionApp(QMainWindow):
     """Main application window"""
 
 
+    def apply_theme(self, theme_name):
+        if theme_name == "dark":
+            self.setStyleSheet(DARK_THEME)
+        else:
+            self.setStyleSheet(LIGHT_THEME)
+
+        self.settings.setValue("theme", theme_name)
+
+    def on_theme_changed(self, theme_name):
+        self.apply_theme(theme_name)
+
     def __init__(self):
         super().__init__()
         self.model = None
@@ -202,7 +213,6 @@ class AudioTranscriptionApp(QMainWindow):
         self.settings = QSettings('WhisperTranscription', 'TranscriptionApp')
 
         self.init_ui()
-        self.setup_style()
         self.load_settings()
 
         # Auto-load recommended model
@@ -404,6 +414,18 @@ class AudioTranscriptionApp(QMainWindow):
 
         layout.addWidget(output_group)
 
+        # Theme settings
+        theme_group = QGroupBox("Theme")
+        theme_layout = QGridLayout(theme_group)
+
+        theme_layout.addWidget(QLabel("Select Theme:"), 0, 0)
+        self.theme_combo = QComboBox()
+        self.theme_combo.addItems(["light", "dark"])
+        self.theme_combo.currentTextChanged.connect(self.on_theme_changed)
+        theme_layout.addWidget(self.theme_combo, 0, 1)
+
+        layout.addWidget(theme_group)
+
         layout.addStretch()
         self.tab_widget.addTab(tab, "Settings")
 
@@ -486,62 +508,6 @@ class AudioTranscriptionApp(QMainWindow):
 
         self.status_bar.showMessage("System information refreshed", 3000)
 
-    def setup_style(self):
-        """Setup application styling"""
-        self.setStyleSheet("""
-            QMainWindow {
-                background-color: #f5f5f5;
-            }
-            QGroupBox {
-                font-weight: bold;
-                border: 2px solid #cccccc;
-                border-radius: 5px;
-                margin-top: 1ex;
-                padding-top: 10px;
-            }
-            QGroupBox::title {
-                subcontrol-origin: margin;
-                left: 10px;
-                padding: 0 5px 0 5px;
-            }
-            QPushButton {
-                background-color: #4CAF50;
-                border: none;
-                color: white;
-                padding: 8px 16px;
-                border-radius: 4px;
-                font-weight: bold;
-            }
-            QPushButton:hover {
-                background-color: #45a049;
-            }
-            QPushButton:pressed {
-                background-color: #3d8b40;
-            }
-            QPushButton:disabled {
-                background-color: #cccccc;
-                color: #666666;
-            }
-            QTextEdit {
-                border: 1px solid #cccccc;
-                border-radius: 4px;
-                padding: 5px;
-                font-family: 'Consolas', 'Monaco', monospace;
-            }
-            QTabWidget::pane {
-                border: 1px solid #cccccc;
-            }
-            QTabBar::tab {
-                background-color: #e1e1e1;
-                padding: 8px 16px;
-                margin-right: 2px;
-            }
-            QTabBar::tab:selected {
-                background-color: #4CAF50;
-                color: white;
-            }
-        """)
-
     def load_settings(self):
         """Load application settings"""
         # Load model preference
@@ -551,6 +517,11 @@ class AudioTranscriptionApp(QMainWindow):
         # Load other settings
         self.auto_detect_cb.setChecked(self.settings.value('auto_detect', True, type=bool))
         self.timestamps_cb.setChecked(self.settings.value('timestamps', True, type=bool))
+
+        # load theme
+        theme = self.settings.value("theme", "light")
+        self.theme_combo.setCurrentText(theme)
+        self.apply_theme(theme)
 
     def save_settings(self):
         """Save application settings"""
