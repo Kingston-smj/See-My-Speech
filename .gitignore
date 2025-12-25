@@ -34,6 +34,7 @@ Thumbs.db
 *.rc
 /.qmake.cache
 /.qmake.stash
+Other/
 
 # qtcreator generated files
 *.pro.user*

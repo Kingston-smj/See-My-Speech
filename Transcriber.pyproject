@@ -1,9 +1,0 @@
-{
-    "files": [
-        "Dockerfile.windows",
-        "build_script.py",
-        "main.py",
-        "main_window.py",
-        "requirements"
-    ]
-}
