@@ -27,5 +27,3 @@ QTextEdit { background-color: #1a1a1a; color: #e0e0e0; border: 1px solid #333; }
 QTabBar::tab { background: #1e1e1e; color: #e0e0e0; padding: 8px 16px; }
 QTabBar::tab:selected { background: #17631a; color:black; }
 """
-
-#QGroupBox { border: 1px solid #333; }

@@ -1,5 +1,4 @@
 # Whisper Audio Transcription - Requirements
-# Python 3.8+ required
 
 # GUI Framework
 PyQt5>=5.15.7
