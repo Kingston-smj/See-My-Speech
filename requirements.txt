@@ -1,23 +1,23 @@
 # Whisper Audio Transcription - Requirements
 
 # GUI Framework
-PyQt5>=5.15.7
+PyQt5>=5.15.11
 
 # Audio Transcription
-openai-whisper>=20231117
+openai-whisper>=20240930
 
 # Machine Learning Framework
-torch>=1.9.0
-torchaudio>=0.9.0
+torch>=2.7.1
+torchaudio>=2.7.1
 
 # System Utilities
-psutil>=5.8.0
+psutil>=7.0.0
 
 # Audio Processing
 pydub>=0.25.1
 
 # Numerical Computing (required by torch/whisper)
-numpy>=1.21.0
+numpy>=1.26.4
 
 # Optional: For building executables
 # pyinstaller>=5.0
